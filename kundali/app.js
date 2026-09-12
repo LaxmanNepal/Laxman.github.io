@@ -34,4 +34,38 @@ function buildProfile(){
 form.addEventListener('submit',e=>{e.preventDefault();buildProfile();document.getElementById('compare-mode').scrollIntoView({behavior:'smooth',block:'center'});});
 copyBtn.addEventListener('click',async()=>{if(!profileText)return;try{await navigator.clipboard.writeText(profileText);copyBtn.textContent='Copied ✓';setTimeout(()=>copyBtn.textContent='Copy birth data',1400);}catch{copyBtn.textContent='Select and copy manually';}});
 clearBtn.addEventListener('click',()=>{form.reset();profileText='';output.innerHTML='<strong>No profile yet</strong><span>Fill the form to generate a clean birth-data summary.</span>';copyBtn.disabled=true;copyBtn.textContent='Copy birth data';compareLinks.hidden=true;});
+
+const verifyFields=[
+ ['Lagna / Ascendant','lagna'],['Sun sign','sun'],['Moon sign','moon'],['Mars sign','mars'],['Mercury sign','mercury'],['Jupiter sign','jupiter'],['Venus sign','venus'],['Saturn sign','saturn'],['Rahu / Ketu','nodes'],['Moon Nakshatra + Pada','nakshatra'],['Lagna degree','lagnaDeg'],['Moon degree','moonDeg'],['D9 Navamsa Lagna','d9Lagna'],['Vimshottari Mahadasha','dasha']
+];
+const sources=['hp','kn','sp'];
+const storageKey='laxman-kundali-verification-v1';
+const norm=v=>v.trim().toLowerCase().replace(/\s+/g,' ').replace(/°/g,'').replace(/\s*\/\s*/g,'/');
+function makeVerifyRows(){
+ const tbody=document.getElementById('verifyRows');
+ tbody.innerHTML=verifyFields.map(([label,key])=>`<tr><td><strong>${label}</strong></td>${sources.map(s=>`<td><input class="verify-input" data-source="${s}" data-key="${key}" placeholder="Enter result"></td>`).join('')}<td class="agreement-cell" data-agreement="${key}">—</td></tr>`).join('');
+ document.querySelectorAll('.verify-input').forEach(input=>input.addEventListener('input',updateVerification));
+}
+function updateVerification(){
+ let comparable=0,agreed=0;
+ verifyFields.forEach(([label,key])=>{
+  const vals=sources.map(s=>document.querySelector(`[data-source="${s}"][data-key="${key}"]`).value).map(norm).filter(Boolean);
+  const cell=document.querySelector(`[data-agreement="${key}"]`);
+  if(vals.length<2){cell.textContent='—';cell.className='agreement-cell';return;}
+  comparable++;
+  const unique=[...new Set(vals)];
+  if(unique.length===1){agreed++;cell.textContent='✓ Match';cell.className='agreement-cell match';}
+  else{cell.textContent='≠ Differ';cell.className='agreement-cell differ';}
+ });
+ const pct=comparable?Math.round(agreed/comparable*100):0;
+ document.getElementById('agreementScore').textContent=`${pct}% agreement`;
+ document.getElementById('verifySummary').innerHTML=comparable?`<b>${agreed} of ${comparable} comparable fields agree.</b><span>${pct===100?'All entered values match.':pct>=67?'Most entered values match; inspect the differences below.':pct>0?'Some values match, but calculation settings may differ.':'No entered fields agree yet.'}</span>`:'<b>Start entering results.</b><span>Agreement appears after at least two calculators contain a value for the same field.</span>';
+}
+function verifyPayload(){return Object.fromEntries(document.querySelectorAll('.verify-input').map(i=>[`${i.dataset.source}.${i.dataset.key}`,i.value]));}
+function fillPayload(payload){document.querySelectorAll('.verify-input').forEach(i=>i.value=payload[`${i.dataset.source}.${i.dataset.key}`]||'');updateVerification();}
+document.getElementById('loadDemo').addEventListener('click',()=>{const demo={};verifyFields.forEach(([label,key])=>sources.forEach(s=>demo[`${s}.${key}`]=s==='hp'?'Example A':s==='kn'?'Example A':'Example A'));demo['hp.lagna']='Aries';demo['kn.lagna']='Aries';demo['sp.lagna']='Taurus';demo['hp.lagnaDeg']='12.40';demo['kn.lagnaDeg']='12.40';demo['sp.lagnaDeg']='12.41';fillPayload(demo);});
+document.getElementById('clearVerify').addEventListener('click',()=>fillPayload({}));
+document.getElementById('saveVerify').addEventListener('click',()=>{localStorage.setItem(storageKey,JSON.stringify({savedAt:new Date().toISOString(),values:verifyPayload()}));const b=document.getElementById('saveVerify');b.textContent='Saved ✓';setTimeout(()=>b.textContent='Save locally',1400);});
+try{const saved=JSON.parse(localStorage.getItem(storageKey)||'null');if(saved?.values)fillPayload(saved.values);}catch{}
+makeVerifyRows();
 render();
