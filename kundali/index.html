@@ -1,44 +1,17 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Free Janma Kundali maker comparison — Hamro Patro, KundaliNepal, Suman Pokhrel and Swiss Ephemeris reference resources.">
-  <title>Janma Kundali Makers — Laxman Nepal</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Compare free Janma Kundali calculators and Vedic calculation methods.">
+<title>Janma Kundali Lab — Laxman Nepal</title><link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="topbar">
-    <a class="brand" href="../">Laxman Nepal</a>
-    <nav><a class="active" href="#makers">Kundali Makers</a><a href="#comparison">Compare</a><a href="#method">Calculation</a></nav>
-  </header>
-
-  <main>
-    <section class="hero">
-      <div class="eyebrow">FREE KUNDALI DIRECTORY</div>
-      <h1>Find a Janma Kundali calculator you can actually compare.</h1>
-      <p>One place to explore Nepal-focused Kundali makers and a calculation reference. Compare features first; don't confuse a polished prediction with accurate astronomical calculation.</p>
-      <div class="hero-actions"><a class="primary" href="#makers">Explore makers ↓</a><a class="secondary" href="#method">How accuracy works</a></div>
-      <div class="hero-note"><span>✦</span> Calculation reference: Swiss Ephemeris · Lahiri / Chitrapaksha · Vedic chart workflows</div>
-    </section>
-
-    <section id="makers" class="section">
-      <div class="section-head"><div><div class="eyebrow">EXPLORE</div><h2>Kundali makers</h2></div><span class="count">4 resources</span></div>
-      <div id="cards" class="grid"></div>
-    </section>
-
-    <section id="comparison" class="section compare-section">
-      <div class="section-head"><div><div class="eyebrow">QUICK COMPARE</div><h2>What matters in calculation</h2></div></div>
-      <div class="table-wrap"><table><thead><tr><th>Resource</th><th>D1</th><th>D9</th><th>Degrees</th><th>Nakshatra</th><th>Dasha</th><th>Method transparency</th></tr></thead><tbody id="compareRows"></tbody></table></div>
-    </section>
-
-    <section id="method" class="section method">
-      <div class="method-copy"><div class="eyebrow">CALCULATION</div><h2>Accuracy starts before the prediction.</h2><p>A serious Vedic chart depends on the birth timestamp, timezone, coordinates, ephemeris, ayanamsa, node definition and house model. This directory separates those calculation choices from the site's interpretation layer.</p></div>
-      <div class="pipeline"><div><b>01</b><span>Birth date + exact time</span></div><div><b>02</b><span>Location + timezone</span></div><div><b>03</b><span>Planetary ephemeris</span></div><div><b>04</b><span>Lahiri sidereal positions</span></div><div><b>05</b><span>D1 / D9 / Nakshatra / Dasha</span></div></div>
-    </section>
-  </main>
-
-  <footer><span>© Laxman Nepal</span><span>Janma Kundali comparison · Free resources</span></footer>
-  <script src="data.js"></script><script src="app.js"></script>
-</body>
-</html>
+<header class="topbar"><a class="brand" href="../">Laxman Nepal</a><nav><a class="active" href="#makers">Makers</a><a href="#compare">Compare</a><a href="#method">Method</a></nav></header>
+<main>
+<section class="hero"><div class="eyebrow">JANMA KUNDALI LAB</div><h1>Compare Kundali makers before you trust the chart.</h1><p>Explore free Nepal-focused calculators alongside Swiss Ephemeris as the calculation reference. Compare what each tool actually provides instead of relying on vague “accuracy” claims.</p><div class="hero-actions"><a class="primary" href="#makers">Explore calculators ↓</a><a class="secondary" href="#compare">Compare features</a></div><div class="hero-stats"><div><b>4</b><span>Resources</span></div><div><b>7+</b><span>Chart features</span></div><div><b>1</b><span>Reference engine</span></div></div></section>
+<section id="makers" class="section"><div class="section-head"><div><div class="eyebrow">EXPLORE</div><h2>Kundali makers</h2></div><span id="resultCount" class="count">4 resources</span></div><div class="toolbar"><label class="search"><span>⌕</span><input id="search" type="search" placeholder="Search makers, features…"></label><div id="filters" class="filters"><button class="filter active" data-filter="all">All</button><button class="filter" data-filter="Nepali">Nepali</button><button class="filter" data-filter="D9">D9</button><button class="filter" data-filter="Dasha">Dasha</button><button class="filter" data-filter="Lahiri">Lahiri</button></div></div><div id="cards" class="grid"></div></section>
+<section id="compare" class="section compare-section"><div class="section-head"><div><div class="eyebrow">SIDE BY SIDE</div><h2>Calculation feature matrix</h2></div></div><div class="table-wrap"><table><thead><tr><th>Resource</th><th>D1</th><th>D9</th><th>Degrees</th><th>Nakshatra</th><th>Dasha</th><th>Method</th></tr></thead><tbody id="compareRows"></tbody></table></div><p class="fineprint">Feature availability is based on the public information available for each resource; “Reference” means the engine supplies calculation data from which chart features can be derived.</p></section>
+<section id="method" class="section method"><div class="method-copy"><div class="eyebrow">REFERENCE STACK</div><h2>What “accurate” should mean.</h2><p>For numerical validation, use a documented ephemeris and fixed Vedic settings. A polished interpretation page is not evidence that its underlying planetary positions are correct.</p><div class="stack"><span>Swiss Ephemeris</span><i>→</i><span>Lahiri / Chitrapaksha</span><i>→</i><span>True Node</span><i>→</i><span>Whole Sign</span></div></div><div class="pipeline"><div><b>01</b><span>Birth date + exact local time</span></div><div><b>02</b><span>Birthplace coordinates + timezone</span></div><div><b>03</b><span>Planetary positions from ephemeris</span></div><div><b>04</b><span>Sidereal conversion with chosen ayanamsa</span></div><div><b>05</b><span>D1 · D9 · Nakshatra · Vimshottari Dasha</span></div></div></section>
+<section class="section disclaimer"><div><div class="eyebrow">IMPORTANT</div><h2>Calculation and prediction are different things.</h2><p>Planetary positions can be reproduced numerically. Astrological predictions are interpretations and are not scientifically established facts. Use this directory to compare calculation inputs and outputs, not to guarantee life outcomes.</p></div></section>
+</main><footer><span>© Laxman Nepal</span><span>Janma Kundali Lab · Free resources</span></footer><script src="data.js"></script><script src="app.js"></script>
+</body></html>
